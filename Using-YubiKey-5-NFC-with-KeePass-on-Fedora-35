@@ -1,0 +1,45 @@
+#################################
+successfully performed on Fedora 35:
+5.15.17-200.fc35.x86_64
+#################################
+
+dnf install keepass
+
+#from this website
+https://richardbenjaminrush.com/keechallenge/
+#download this file
+https://github.com/brush701/keechallenge/releases/download/1.5/KeeChallenge_1.5.zip
+
+#extract the .zip 
+#then copy it into the keepass library folder
+cp -r KeeChallenge_1.5/* /usr/lib/keepass/
+
+#install the YubiKey Manager with a GUI to configure Slot 2
+sudo dnf install yubikey-manager-qt
+#Open the YubiKey Manager
+#Click Applications > OTP
+#click Configure under the Long Touch (Slot 2)
+#Select Challenge-response and click Next
+#Generate a secret key by clicking Generate, and copy it somewhere (this will be needed later for KeePass setup). If desired, check Require touch. Click Finish, and confirm if prompted.
+
+#open keepass
+#If you already have an existing database, open it, then click File > Change Master Key 
+#Make sure, you input your Master Password, if you don't, KeePass can be opened with no Master Password and just the YubiKey
+
+#If you don't have an existing database, create one using the wizard
+#Configure a Master Password
+
+#You should see the Create Composite Master Key window
+#Enter your master password, check Show expert options
+#check Key file / provider, and select Yubikey challenge-response from the list
+#click ok
+
+#Paste the secret key generated before into the Secret Key Entry window
+#check "Variable Length Challenge?" and click OK
+
+#if you checked Require touch in step 5, you will be prompted to touch your YubiKey
+
+#save changes either by clicking File > Save or by answering Save when exiting KeePass
+
+#you are now good to go
+#think about getting another YubiKey as a backup if the old one breaks, as you then wouldn't be able to access KeePass anymore
